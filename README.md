@@ -14,6 +14,8 @@ Specifically it provides following functionalities to the user:
 
 Refer to User Guide available in the release section for more information on how to install and use the tool
 
+![alt tag](https://cloud.githubusercontent.com/assets/16422549/14551819/924c5e56-02f5-11e6-84e8-2417e99938c6.PNG)
+
 # Asset BOM
  
  The application is installed using an MSI file. The files bundled within the installer are :
