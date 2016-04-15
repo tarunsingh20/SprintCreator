@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util='http://schemas.microsoft.com/wix/UtilExtension'>
+  <Product  Id='783049b0-b86c-4b57-a3c8-8c028ea35b3a' Name="Sprint Creator" Language="1033" Codepage='1252'  Version="1.0.0.0" Manufacturer="STaRZ" UpgradeCode="65891866-fab2-487e-bcd0-a557769c9af6">
+
+    <Package Id='*' Keywords='Installer' Description="STaRZ's Sprint Creator Installer" Manufacturer='STaRZ'
+     InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+    <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' DiskPrompt='CD-ROM #1' />
+    <Property Id='DiskPrompt' Value="STaRZ's Sprint Creator 1.0 Installation [1]" />
+
+    <Property Id="DESTINATIONDIRECTORY1" Value="STaRZ" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="STaRZ" FileSource=".\BuildSource">
+          <Directory Id="Libraries" Name="!(loc.AssetName)" SourceName="Libraries">
+            <Component Id="Libraries" Guid="85b331ba-b6c8-4180-a981-13d8fb20d29e">
+              <CreateFolder />
+              <CreateFolder Directory="INSTALLLOCATION">
+                <util:PermissionEx User="Users" GenericAll="yes" />
+              </CreateFolder>
+              <RemoveFile Id="PurgeAppFolder" Name="*.*" On="uninstall" />
+            </Component>
+
+            <Component Id="TFSWrapper2010" Guid="cdc6c96a-0a90-4801-bf8b-bc90d7f32039">
+              <File Id="CryptoLibrary2010" Name="STaRZ.CryptoLibrary.dll" DiskId="1" Source="BuildSource\Libraries\STaRZ.CryptoLibrary.dll" />
+              <File Id="WinAPI2010" Name="STaRZ.WinAPI.dll" DiskId="1" Source="BuildSource\Libraries\STaRZ.WinAPI.dll" />
+              
+              <File Id="TFSLibrary2010" Name="STaRZ.TFSLibrary.dll" DiskId="1" Source="BuildSource\Libraries\TFS2010\STaRZ.TFSLibrary.dll" />
+              <File Id="SprintCreator_Exe2010" Name="SprintCreator.exe" DiskId="1" Source="BuildSource\Libraries\TFS2010\SprintCreator.exe" />
+              <Condition><![CDATA[INSTALLTYPE = 1]]></Condition>
+            </Component>
+
+            <Component Id="TFSWrapper2012" Guid="2fea8f26-b3cf-4f42-a9c8-1808cca8ce60">
+              <File Id="CryptoLibrary2012" Name="STaRZ.CryptoLibrary.dll" DiskId="1" Source="BuildSource\Libraries\STaRZ.CryptoLibrary.dll" />
+              <File Id="WinAPI2012" Name="STaRZ.WinAPI.dll" DiskId="1" Source="BuildSource\Libraries\STaRZ.WinAPI.dll" />
+              
+              <File Id="TFSLibrary2012" Name="STaRZ.TFSLibrary.dll" DiskId="1" Source="BuildSource\Libraries\TFS2012\STaRZ.TFSLibrary.dll" />
+              <File Id="SprintCreator_Exe2012" Name="SprintCreator.exe" DiskId="1" Source="BuildSource\Libraries\TFS2012\SprintCreator.exe" />
+              <Condition><![CDATA[INSTALLTYPE = 2]]></Condition>
+            </Component>
+
+            <Component Id="TFSWrapper2013" Guid="dad6a88d-8ec0-446f-8fc5-097263939519">
+              <File Id="CryptoLibrary2013" Name="STaRZ.CryptoLibrary.dll" DiskId="1" Source="BuildSource\Libraries\STaRZ.CryptoLibrary.dll" />
+              <File Id="WinAPI2013" Name="STaRZ.WinAPI.dll" DiskId="1" Source="BuildSource\Libraries\STaRZ.WinAPI.dll" />
+              
+              <File Id="TFSLibrary2013" Name="STaRZ.TFSLibrary.dll" DiskId="1" Source="BuildSource\Libraries\TFS2013\STaRZ.TFSLibrary.dll" />
+              <File Id="SprintCreator_Exe2013" Name="SprintCreator.exe" DiskId="1" Source="BuildSource\Libraries\TFS2013\SprintCreator.exe" />
+              <Condition><![CDATA[INSTALLTYPE = 3]]></Condition>
+            </Component>
+          </Directory>          
+
+          <Directory Id="Configuration" Name="!(loc.AssetName)" SourceName="Configuration">
+            <Component Id="Configuration" Guid="050b349b-4e3f-4c05-aa01-089a15041423">
+              <File Id="ConfigFile" Name="SprintCreator.exe.config" DiskId="1" KeyPath="yes" />
+            </Component>
+          </Directory>
+
+          <Directory Id="DesktopFolder" Name="Desktop">
+
+            <Component Id="ApplicationShortcutDesktop2010" Guid="80da7ef8-f71b-424a-aa60-d90b501bcc64">
+              <Shortcut Id="ApplicationDesktopShortcut2010"
+                 Name="Sprint Creator"
+                 Description="Shortcut to Sprint Creator"
+                 Target="[#SprintCreator_Exe2010]"
+                  Icon="ASC.ico" IconIndex="0"
+                 WorkingDirectory="INSTALLLOCATION"/>
+              
+              <RemoveFolder Id="DesktopFolder1" On="uninstall"/>
+              
+              <RegistryValue
+                Root="HKCU"
+                Key="Software/MyAppName"
+                Name="installed"
+                Type="integer"
+                Value="1"
+                KeyPath="yes"/>
+              <Condition><![CDATA[INSTALLTYPE = 1]]></Condition>
+            </Component>
+
+            <Component Id="ApplicationShortcutDesktop2012" Guid="5c6c674f-f25c-4ead-90fa-59b0df083b63">
+              <Shortcut Id="ApplicationDesktopShortcut2012"
+                 Name="Sprint Creator"
+                 Description="Shortcut to Sprint Creator"
+                 Target="[#SprintCreator_Exe2012]"
+                  Icon="ASC.ico" IconIndex="0"
+                 WorkingDirectory="INSTALLLOCATION"/>
+              
+              <RemoveFolder Id="DesktopFolder2" On="uninstall"/>
+              
+              <RegistryValue
+                Root="HKCU"
+                Key="Software/MyAppName"
+                Name="installed"
+                Type="integer"
+                Value="1"
+                KeyPath="yes"/>
+              <Condition><![CDATA[INSTALLTYPE = 2]]></Condition>
+            </Component>
+
+            <Component Id="ApplicationShortcutDesktop2013" Guid="dd979fdf-fede-45fc-9eb9-7ce49c85b0f3">
+              <Shortcut Id="ApplicationDesktopShortcut2013"
+                 Name="Sprint Creator"
+                 Description="Shortcut to Sprint Creator"
+                 Target="[#SprintCreator_Exe2013]"
+                  Icon="ASC.ico" IconIndex="0"
+                 WorkingDirectory="INSTALLLOCATION"/>
+              
+              <RemoveFolder Id="DesktopFolder" On="uninstall"/>
+              
+              <RegistryValue
+                Root="HKCU"
+                Key="Software/MyAppName"
+                Name="installed"
+                Type="integer"
+                Value="1"
+                KeyPath="yes"/>
+              <Condition><![CDATA[INSTALLTYPE = 3]]></Condition>
+            </Component>
+
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id='CommonFiles' Level='1'>
+      <ComponentRef  Id='Libraries' />
+      <ComponentRef  Id='Configuration' />
+    </Feature>
+
+    <Feature Id='TFS2010' Level='1'>
+      <ComponentRef  Id='TFSWrapper2010' />
+      <ComponentRef  Id='ApplicationShortcutDesktop2010' />
+    </Feature>
+
+    <Feature Id='TFS2012' Level='1'>
+      <ComponentRef  Id='TFSWrapper2012' />
+      <ComponentRef  Id='ApplicationShortcutDesktop2012' />
+    </Feature>
+
+    <Feature Id='TFS2013' Level='1'>
+      <ComponentRef  Id='TFSWrapper2013' />
+      <ComponentRef  Id='ApplicationShortcutDesktop2013' />
+    </Feature>
+
+    <!-- Define the UI properties of MSI #Start -->
+    <!--WixVariable Id="WixUILicenseRtf" Value="Binary\ProductivityPlatformLicense.rtf"/ -->
+    <WixVariable Id="WixUIDialogBmp" Value="Binary\SprintCreatorUIDialog.bmp" />
+    <WixVariable Id="WixUIBannerBmp" Value="Binary\SprintCreatorBanner.bmp" />
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+
+    <UIRef Id="SprintCreatorInstallDir" />
+
+    <!-- This is to include any translated (localized) Error or ProgressText elements. -->
+    <UIRef Id="WixUI_ErrorProgressText" />
+
+    <UI>
+      <Publish Dialog="SprintCreatorExitDialog"
+        Control="Finish"
+        Event="DoAction"
+        Value="LaunchApplication"><![CDATA[(AVA_REGISTEROFFERINGCHECKBOX = 1) and (NOT Installed)]]></Publish>
+    </UI>
+
+    <Property Id="AVA_REGISTEROFFERINGCHECKBOXTEXT" Value="!(loc.LaunchAssetMessage)!(loc.AssetName)" />
+    <Property Id="AVA_REGISTEROFFERINGCHECKBOX" Value="1" />
+    <!-- Step 3: Include the custom action -->
+
+    <Property Id="WixShellExecTarget" Value="[INSTALLLOCATION]Sprint Creator\SprintCreator.exe" />
+    <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
+
+    <!-- Set the SprintCreator offering's icon which is required to appear in "Add or Remove Programs" program list -->
+    <Icon Id="ASC.ico" SourceFile="Binary\ASC.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="ASC.ico" />
+    <!-- Define the UI properties of MSI #End -->
+  </Product>
+</Wix>

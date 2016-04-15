@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="YOURLOCID">Your localized string</String>
+  <!-- ###### Product Settings (Version Specific) ###### -->
+  <String Id="ProdLanguage">1033</String>
+  <String Id="ProdManufacturer">STaRZ</String>
+
+
+  <!-- Version Specific value -->
+  <String Id="ProdName">STaRZ Services</String>
+  <String Id="LaunchAssetMessage">Launch </String>
+  <String Id="Tech">WPF</String>
+
+
+  <!-- Customizable section -->
+
+  <String Id="AssetName">Sprint Creator</String>
+  <String Id="AssetVersion">1.0</String>
+  <String Id="RegistrationAssetName">Sprint Creator</String>
+</WixLocalization>

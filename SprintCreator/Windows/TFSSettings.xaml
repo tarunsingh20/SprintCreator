@@ -1,0 +1,115 @@
+﻿<Window x:Class="SprintCreator.Windows.TFSSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Icon="/Icons/ASC.ico"
+        Style="{DynamicResource SkinChildWindowStyle}"    MinHeight="350" MinWidth="450"
+        Height="380" Width="446" Background="#FF343434" Foreground="White" ShowInTaskbar="True" ResizeMode="NoResize" MaxWidth="450" MaxHeight="390"
+        WindowStartupLocation="CenterScreen" WindowStyle="None"  Title="Settings" Name="TFSSettingsWindow" Closing="TFSSettingsWindow_Closing">
+    <TabControl Background="DarkGray" BorderBrush="Transparent">
+        <TabControl.Resources>
+            <Style TargetType="TabItem">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TabItem">
+                            <Grid Name="Panel">
+                                <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="Panel" Property="Background" Value="DarkGray" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="False">
+                                    <Setter TargetName="Panel" Property="Background" Value="LightGray" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </TabControl.Resources>
+
+        <TabItem Name="tabSettings" Width="100">
+            <TabItem.Header>
+                <TextBlock Text="TFS Settings" FontWeight="Bold" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,0" />
+            </TabItem.Header>
+            <Grid>
+                <Label Content="Team Collection URL" Height="29" HorizontalAlignment="Left" Margin="3,10,0,0" Name="lblTFSServer" VerticalAlignment="Top" TabIndex="0" Width="120" RenderTransformOrigin="0.075,0.31" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="125,10,0,0" Name="txtTFSServer" VerticalAlignment="Top" Width="260" KeyboardNavigation.TabIndex="0" />
+                <Button  Height="23" Width="25" Content="..." FontSize="16" Name="btnBrowse" Click="btnBrowse_Click" ToolTip="Connect to Team Foundation Server" Margin="400,10,13,263" />
+
+                <Label Content="TFS project" Height="29" HorizontalAlignment="Left" Margin="3,38,0,0" Name="lblTFSProject" VerticalAlignment="Top" Width="120" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="125,38,0,0" Name="txtTFSProject" VerticalAlignment="Top" Width="260"  KeyboardNavigation.TabIndex="1"/>
+
+                <Label Content="User name" Height="29" HorizontalAlignment="Left" Margin="3,66,0,0" Name="lblUsername" VerticalAlignment="Top" Width="89" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="125,66,0,0" Name="txtUsername" VerticalAlignment="Top" Width="260"  KeyboardNavigation.TabIndex="2"/>
+
+                <Label Content="Password" Height="29" HorizontalAlignment="Left" Margin="3,94,0,0" Name="lblPassword" VerticalAlignment="Top" Width="89" />
+                <PasswordBox Height="23" HorizontalAlignment="Left" Margin="125,94,0,0" Name="txtPassword" VerticalAlignment="Top" Width="260"  KeyboardNavigation.TabIndex="3"/>
+
+                <Label Content="Defect Type" Height="29" HorizontalAlignment="Left" Margin="13,122,0,0" Name="lblDefectWorkItemType" VerticalAlignment="Top" Width="89" Visibility="Hidden" />
+                <ComboBox x:Name="cobDefectType" HorizontalAlignment="Left" Margin="135,125,0,0" VerticalAlignment="Top" KeyboardNavigation.TabIndex="4" Width="250" Visibility="Hidden">
+                    <ComboBoxItem x:Name="Bug"   Content="Bug"/>
+                    <ComboBoxItem x:Name="Defect" Content="Defect"/>
+                </ComboBox>
+                <CheckBox Content="Save username &amp; password" Height="16" HorizontalAlignment="Left" Margin="36,139,0,0" Name="chkSavePassword" VerticalAlignment="Top" Checked="ChkSavePassword_Changed" Unchecked="ChkSavePassword_Changed"  KeyboardNavigation.TabIndex="5"/>
+                <CheckBox Content="Connect automatically" Height="16" HorizontalAlignment="Left" Margin="237,139,0,0" Name="chkConnectAuto" VerticalAlignment="Top"  IsEnabled="False" KeyboardNavigation.TabIndex="6"/>
+
+                <Button Content="Launch"  Height="23" HorizontalAlignment="Left" Margin="158,179,0,0" Name="btnLaunch" VerticalAlignment="Top" Width="121" Click="btnLaunch_Click" IsDefault="True"  KeyboardNavigation.TabIndex="7"/>
+
+                <TextBlock Name="ConnectionErrorMsg" TextWrapping="Wrap" TextAlignment="Left" FontWeight="ExtraBold" Foreground="Red" Height="70" Margin="13,219,13,39" />
+            </Grid>
+        </TabItem>
+
+        <TabItem Width="100" Name="tabGenericTasks" >
+            <TabItem.Header>
+                <TextBlock Text="Generic Tasks" FontWeight="Bold" Height="30"  HorizontalAlignment="Center" Margin="0,10,0,0" />
+            </TabItem.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="40" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" Grid.Column="0">
+                    <StackPanel Orientation="Vertical" Width="385">
+                        <Grid Background="Gray" Height="35" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Generic Tasks" Grid.Column="0"  Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" />
+
+                            <Button Name="btnRemoveTask" Grid.Column="1" Width="30" Height="30"  Foreground="White" Click="btnRemoveTask_Click" HorizontalAlignment="Right" Margin="0,0,5,0" ToolTip="Delete Task" >
+                                <Image Source="/Icons/Recycle bin.png" Height="30" Width="30" Margin="-10" />
+                            </Button>
+                        </Grid>
+                        <ListBox Height="190" Name="lstGenericTasks" VerticalAlignment="Top" Width="385" ItemsSource="{Binding}" SelectionMode="Extended" />
+
+                        <StackPanel Orientation="Horizontal" Width="385" Height="35" Margin="0,2" >
+                            <TextBox Name="txtNewTask" Margin="3" Width="340" />
+                            <Button Name="btnAddTask"  Width="30" Height="30" Margin="5,0,10,0" Foreground="White" Click="btnAddTask_Click" HorizontalAlignment="Right" ToolTip="Add Task">
+                                <Image Source="/Icons/Add.png" Height="30" Width="30" Margin="-10" />
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="" FontWeight="Bold" FontSize="15" x:Name="lblMessage" />
+                </StackPanel>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="120" />
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Width="30" Height="30" x:Name="btnMoveUp" Click="btnMoveUp_Click" ToolTip="Move Up" >
+                        <Image Source="/Icons/Up.png" Height="30" Width="30" Margin="-10"  />
+                    </Button>
+                    <Button Grid.Row="1" Width="30" Height="30" x:Name="btnMoveDown" Click="btnMoveDown_Click" ToolTip="Move Down" >
+                        <Image Source="/Icons/Down.png" Height="30" Width="30" Margin="-10" />
+                    </Button>
+                </Grid>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Window>
