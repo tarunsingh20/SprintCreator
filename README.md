@@ -1,6 +1,8 @@
 # Sprint Creator Tool Overview
-Sprint Creator is a WPF based desktop application that helps in creating a simple sprint backlog in TFS 2010/2012/2013 based on the Visual Studio Scrum process template for Visual Studio ALM.
- 
+Sprint Creator is a WPF based desktop application that helps in creating a simple sprint backlog in TFS 2010/2012/2013 based on the Visual Studio Scrum process template for Visual Studio ALM as shown below
+
+![alt tag](https://cloud.githubusercontent.com/assets/16422549/14551736/76abe1fe-02f4-11e6-8da2-54403f3fbc31.png)
+
 Specifically it provides following functionalities to the user: 
  
 1. Move the Backlog Items (Product Backlog Items & Bugs) from backlog to sprint.
